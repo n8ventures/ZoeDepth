@@ -54,7 +54,7 @@ class DepthModel(nn.Module):
         """
         return self(x)['metric_depth']
     
-    def _infer_with_pad_aug(self, x: torch.Tensor, pad_input: bool=True, fh: float=3, fw: float=3, upsampling_mode: str='bicubic', padding_mode="reflect", **kwargs) -> torch.Tensor:
+    def _infer_with_pad_aug(self, x: torch.Tensor, pad_input: bool=True, fh: float=3, fw: float=3, upsampling_mode: str='bilinear', padding_mode="reflect", **kwargs) -> torch.Tensor:
         """
         Inference interface for the model with padding augmentation
         Padding augmentation fixes the boundary artifacts in the output depth map.
@@ -67,7 +67,7 @@ class DepthModel(nn.Module):
             pad_input (bool, optional): whether to pad the input or not. Defaults to True.
             fh (float, optional): height padding factor. The padding is calculated as sqrt(h/2) * fh. Defaults to 3.
             fw (float, optional): width padding factor. The padding is calculated as sqrt(w/2) * fw. Defaults to 3.
-            upsampling_mode (str, optional): upsampling mode. Defaults to 'bicubic'.
+            upsampling_mode (str, optional): upsampling mode. Defaults to 'bilinear'.
             padding_mode (str, optional): padding mode. Defaults to "reflect".
         Returns:
             torch.Tensor: output tensor of shape (b, 1, h, w)
